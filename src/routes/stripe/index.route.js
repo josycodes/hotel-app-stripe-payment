@@ -22,7 +22,13 @@ router.post('/payment/method/attach',
     }),
     attachPaymentMethod);
 
-router.get('/payment/method/get', getPaymentMethod);
+router.post('/payment/method/get',
+    celebrate({
+        [Segments.BODY]: Joi.object({
+            customer_email: Joi.string().required()
+        })
+    }),
+    getPaymentMethod);
 
 router.post('/payment/intent/create',
     celebrate({
