@@ -1,7 +1,8 @@
 import { router } from '../middleware/app.middleware.js';
+import stripeRoutes from '../routes/stripe/index.route.js';
 
 
-/** student Routes */
-// router.use('/', studentRoutes);
+/** Stripe Routes */
+router.use('/stripe', stripeRoutes);
 
 export default router;
