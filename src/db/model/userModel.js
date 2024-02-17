@@ -1,20 +1,24 @@
 import { db } from '../database.js';
-const USERS_TABLE = 'users';
+const TABLE = 'users';
 
 class UserModel {
-    async getUsers() {
-        return db(USERS_TABLE).select('*');
+    /**
+     *
+     * @returns {Promise<Knex.QueryBuilder<TRecord, DeferredKeySelection.AddUnionMember<UnwrapArrayMember<TResult>, undefined>>>}
+     * @param email
+     */
+    async getUserByEmail(email) {
+        return db(TABLE).where({email}).first();
     }
 
-    async getUserById(id) {
-        return db(USERS_TABLE).where({id}).first();
-    }
-
+    /**
+     *
+     * @param user
+     * @returns {Promise<Knex.QueryBuilder<TRecord, number[]>>}
+     */
     async createUser(user) {
-        return db(USERS_TABLE).insert(user);
+        return db(TABLE).insert(user);
     }
-
-
 }
 
 export default UserModel;
