@@ -1,0 +1,10 @@
+ # Dependency directories
+/node_modules/
+/dist/
+/build/
+ # Optional npm cache directory
+.npm
+ # dotenv environment variables file
+.env
+/.idea/
+         .DS_Store
