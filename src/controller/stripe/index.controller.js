@@ -145,7 +145,7 @@ export const createPaymentIntent = async (req, res) => {
             currency: "gbp",
             customer: customer.stripe_customer_id,
             payment_method: paymentMethodID,
-            description: description,
+            description: description
         });
 
         //Add the payment intent record to the DB (Payments Table)
@@ -161,15 +161,15 @@ export const createPaymentIntent = async (req, res) => {
         return res.status(200).json({
             status: true,
             message: 'Payment Method attached',
-            data: paymentIntent
+            data: paymentIntent.client_secret
         });
     } catch (error) {
         LoggerLib.error(error);
         if (error instanceof stripe.errors.StripeConnectionError) {
             // Handle Stripe connection error
-            res.status(500).json({ status: false, message: "Stripe connection error occurred" });
+            res.status(400).json({ status: false, message: "Stripe connection error occurred" });
         }else if(error instanceof stripe.errors.StripeInvalidRequestError){
-            res.status(500).json({ status: false, message: error.message });
+            res.status(400).json({ status: false, message: error.message });
         } else {
             // Handle other errors
             res.status(500).json({ error: error.message });
