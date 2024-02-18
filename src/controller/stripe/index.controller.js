@@ -161,7 +161,7 @@ export const createPaymentIntent = async (req, res) => {
         return res.status(200).json({
             status: true,
             message: 'Payment Method attached',
-            data: paymentIntent.client_secret
+            data: paymentIntent
         });
     } catch (error) {
         LoggerLib.error(error);
