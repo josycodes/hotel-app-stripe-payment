@@ -145,7 +145,12 @@ export const createPaymentIntent = async (req, res) => {
             currency: "gbp",
             customer: customer.stripe_customer_id,
             payment_method: paymentMethodID,
-            description: description
+            description: description,
+            payment_method_types: ['card'],
+            automatic_payment_methods: {
+                enabled: true,
+                allow_redirects: false,
+            }
         });
 
         //Add the payment intent record to the DB (Payments Table)
@@ -155,7 +160,7 @@ export const createPaymentIntent = async (req, res) => {
             payment_intent_id: paymentIntent.id,
             status: paymentIntent.status,
             currency: "gbp",
-            user_id: customer.id
+            user_id: customer.id,
         });
 
         return res.status(200).json({
