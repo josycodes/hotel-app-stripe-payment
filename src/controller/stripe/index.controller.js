@@ -146,7 +146,6 @@ export const createPaymentIntent = async (req, res) => {
             customer: customer.stripe_customer_id,
             payment_method: paymentMethodID,
             description: description,
-            payment_method_types: ['card'],
             automatic_payment_methods: {
                 enabled: true,
                 allow_redirects: "never",
