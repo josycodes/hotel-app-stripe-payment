@@ -149,7 +149,7 @@ export const createPaymentIntent = async (req, res) => {
             payment_method_types: ['card'],
             automatic_payment_methods: {
                 enabled: true,
-                allow_redirects: false,
+                allow_redirects: "never",
             }
         });
 
