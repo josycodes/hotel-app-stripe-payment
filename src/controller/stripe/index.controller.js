@@ -12,13 +12,17 @@ const stripe = stripePackage(process.env.STRIPE_SECRET_KEY);
  */
 export const createCustomer = async (req, res) => {
     try {
+        const { name, email, phone, home_address, reason } = req.body;
         //create customer on stripe
-        const customer = await stripe.customers.create(req.body);
+        const customer = await stripe.customers.create({ name, email, phone });
+
         const user_data = {
             name: customer.name,
             email: customer.email,
             phone: customer.phone,
-            stripe_customer_id: customer.id
+            stripe_customer_id: customer.id,
+            home_address,
+            reason_for_stay: reason
         }
 
         // create customer on DB with Stripe Customer ID
@@ -37,6 +41,11 @@ export const createCustomer = async (req, res) => {
             // Handle other errors
             res.status(500).json({ error: error.message });
         }
+
+        res.status(500).json({
+            status: false,
+            message: error.message
+        });
     }
 };
 
